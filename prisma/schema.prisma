@@ -58,3 +58,51 @@ model Order {
   customer Customer @relation(fields: [customerId], references: [id])
   product  Product  @relation(fields: [productId], references: [id])
 }
+
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  startDate   DateTime
+  endDate     DateTime?
+  status      ProjectStatus
+  createdAt   DateTime   @default(now())
+  tasks       Task[]
+  assignments ProjectAssignment[]
+}
+
+model Member {
+  id         Int      @id @default(autoincrement())
+  name       String
+  role       String
+  joinedAt   DateTime
+  assignments ProjectAssignment[]
+}
+
+model ProjectAssignment {
+  projectId Int
+  memberId  Int
+  assignedRole String
+
+  project Project @relation(fields: [projectId], references: [id])
+  member  Member  @relation(fields: [memberId], references: [id])
+
+  @@id([projectId, memberId])
+}
+
+model Task {
+  id         Int       @id @default(autoincrement())
+  projectId  Int
+  title      String
+  completed  Boolean
+  dueDate    DateTime
+
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  COMPLETED
+  CANCELED
+}
