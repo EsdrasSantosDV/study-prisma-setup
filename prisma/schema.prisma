@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:postgres@localhost:5434/nest_db?schema=public"
 }
 
 model User {
@@ -34,16 +34,16 @@ model Post {
 }
 
 model Customer {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
+  id     Int     @id @default(autoincrement())
+  name   String
+  email  String  @unique
   orders Order[]
 }
 
 model Product {
-  id    Int     @id @default(autoincrement())
-  name  String
-  price Float
+  id     Int     @id @default(autoincrement())
+  name   String
+  price  Float
   orders Order[]
 }
 
@@ -59,29 +59,28 @@ model Order {
   product  Product  @relation(fields: [productId], references: [id])
 }
 
-
 model Project {
-  id          Int       @id @default(autoincrement())
+  id          Int                 @id @default(autoincrement())
   name        String
   startDate   DateTime
   endDate     DateTime?
   status      ProjectStatus
-  createdAt   DateTime   @default(now())
+  createdAt   DateTime            @default(now())
   tasks       Task[]
   assignments ProjectAssignment[]
 }
 
 model Member {
-  id         Int      @id @default(autoincrement())
-  name       String
-  role       String
-  joinedAt   DateTime
+  id          Int                 @id @default(autoincrement())
+  name        String
+  role        String
+  joinedAt    DateTime
   assignments ProjectAssignment[]
 }
 
 model ProjectAssignment {
-  projectId Int
-  memberId  Int
+  projectId    Int
+  memberId     Int
   assignedRole String
 
   project Project @relation(fields: [projectId], references: [id])
@@ -91,11 +90,11 @@ model ProjectAssignment {
 }
 
 model Task {
-  id         Int       @id @default(autoincrement())
-  projectId  Int
-  title      String
-  completed  Boolean
-  dueDate    DateTime
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  title     String
+  completed Boolean
+  dueDate   DateTime
 
   project Project @relation(fields: [projectId], references: [id])
 }

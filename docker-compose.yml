@@ -4,7 +4,7 @@ services:
     image: postgres:latest
     container_name: nest-postgres
     ports:
-      - "5432:5432"
+      - '5434:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -13,4 +13,4 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data: 
+  postgres_data:
