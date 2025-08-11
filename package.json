@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:prisma": "ts-node src/scripts/test-prisma.ts",
-    "exercise:one": "ts-node src/scripts/exercicise-one-esdras.ts"
+    "seed:basic": "ts-node src/scripts/seed-basic-data.ts",
+    "exercise:one": "ts-node src/scripts/exercicise-one-esdras.ts",
+    "seed:restaurant": "ts-node src/scripts/pedidos-restaurante.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.7.0",

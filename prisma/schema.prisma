@@ -105,3 +105,29 @@ enum ProjectStatus {
   COMPLETED
   CANCELED
 }
+
+enum PedidoStatus {
+  RECEBIDO
+  PREPARANDO
+  PRONTO
+  ENTREGUE
+}
+
+model Pedido {
+  id        String      @id @default(uuid())
+  customer  String
+  status    PedidoStatus @default(RECEBIDO)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  items PedidoItem[]
+}
+
+model PedidoItem {
+  id   String @id @default(uuid())
+  dish String
+  qty  Int    @default(1)
+
+  orderId String
+  order   Pedido  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
